@@ -26,7 +26,7 @@ public class PaymentServiceImpl implements PaymentService {
         if(mode.equalsIgnoreCase("cash")) paymentMode=PaymentMode.CASH;
         else if(mode.equalsIgnoreCase("upi")) paymentMode=PaymentMode.UPI;
         else if (mode.equalsIgnoreCase("card")) paymentMode=PaymentMode.CARD;
-        else throw new Exception("Payment mode not detected");
+        else throw new Exception("Payment mode not detected "+mode);
 
         payment=reservation.getPayment();
         payment.setPaymentMode(paymentMode);

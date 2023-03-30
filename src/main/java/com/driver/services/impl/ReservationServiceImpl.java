@@ -51,10 +51,6 @@ public class ReservationServiceImpl implements ReservationService {
 
         reservation=new Reservation();
 
-        /*if(numberOfWheels==2)newSpot.setSpotType(SpotType.TWO_WHEELER);
-        else if(numberOfWheels==4)newSpot.setSpotType(SpotType.FOUR_WHEELER);
-        else newSpot.setSpotType(SpotType.OTHERS);*/
-
         reservation.setSpot(newSpot);
         reservation.setNumberOfHours(timeInHours);
         reservation.setPayment(payment);
