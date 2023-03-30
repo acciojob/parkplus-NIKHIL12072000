@@ -44,8 +44,8 @@ public class Payment {
     }
 
     PaymentMode paymentMode;
-    @OneToOne
-    @JoinColumn
+    @OneToOne(mappedBy = "reservation", cascade = CascadeType.ALL)
+
     Reservation reservation;
 
     public Payment(int id, boolean paymentCompleted, PaymentMode paymentMode, Reservation reservation) {

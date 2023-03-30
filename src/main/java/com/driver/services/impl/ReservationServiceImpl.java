@@ -27,7 +27,6 @@ public class ReservationServiceImpl implements ReservationService {
         User user;
         Spot newSpot=null;
         Reservation reservation=null;
-        Payment payment=new Payment();
         try{
             parkingLot=parkingLotRepository3.findById(parkingLotId).get();
             user=userRepository3.findById(userId).get();
@@ -53,7 +52,6 @@ public class ReservationServiceImpl implements ReservationService {
 
         reservation.setSpot(newSpot);
         reservation.setNumberOfHours(timeInHours);
-        reservation.setPayment(payment);
 
         user.getReservationList().add(reservation);
         newSpot.getReservationList().add(reservation);
