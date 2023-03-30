@@ -23,6 +23,42 @@ public class ReservationServiceImpl implements ReservationService {
     ParkingLotRepository parkingLotRepository3;
     @Override
     public Reservation reserveSpot(Integer userId, Integer parkingLotId, Integer timeInHours, Integer numberOfWheels) throws Exception {
+        ParkingLot parkingLot;
+        User user;
+        Spot newSpot=null;
+        Reservation reservation=new Reservation();
+        Payment payment=new Payment();
+        try{
+            parkingLot=parkingLotRepository3.findById(parkingLotId).get();
+            user=userRepository3.findById(userId).get();
+        }catch (Exception e){
+            throw new Exception("Cannot make reservation");
+        }
+        int min=Integer.MAX_VALUE;
+        for(Spot spot:parkingLot.getSpotList()) {
+            if (numberOfWheels == 2 && (spot.getSpotType() == SpotType.TWO_WHEELER || spot.getSpotType() == SpotType.FOUR_WHEELER || spot.getSpotType() == SpotType.OTHERS) && min > spot.getPricePerHour()) {
+                min = spot.getPricePerHour();
+                newSpot = spot;
+            } else if (numberOfWheels == 4 && (spot.getSpotType() == SpotType.FOUR_WHEELER || spot.getSpotType() == SpotType.OTHERS) && min > spot.getPricePerHour()) {
+                min = spot.getPricePerHour();
+                newSpot = spot;
+            } else if (numberOfWheels > 4 && (spot.getSpotType() == SpotType.OTHERS) && min > spot.getPricePerHour()) {
+                min = spot.getPricePerHour();
+                newSpot = spot;
+            }
+        }
+        if(newSpot==null) throw new Exception("Cannot make reservation");
+        reservation.setSpot(newSpot);
+        reservation.setNumberOfHours(timeInHours);
+        reservation.setPayment(payment);
 
+        user.getReservationList().add(reservation);
+        newSpot.getReservationList().add(reservation);
+
+        reservationRepository3.save(reservation);
+        userRepository3.save(user);
+        spotRepository3.save(newSpot);
+
+        return reservation;
     }
 }
