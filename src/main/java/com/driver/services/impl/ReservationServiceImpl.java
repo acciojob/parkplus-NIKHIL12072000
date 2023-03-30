@@ -36,7 +36,7 @@ public class ReservationServiceImpl implements ReservationService {
         }
         int min=Integer.MAX_VALUE;
         for(Spot spot:parkingLot.getSpotList()) {
-            if (numberOfWheels == 2 && (spot.getSpotType() == SpotType.TWO_WHEELER || spot.getSpotType() == SpotType.FOUR_WHEELER || spot.getSpotType() == SpotType.OTHERS) && min >= spot.getPricePerHour()) {
+            if (numberOfWheels == 2 && min >= spot.getPricePerHour()) {
                 min = spot.getPricePerHour();
                 newSpot = spot;
             } else if (numberOfWheels == 4 && (spot.getSpotType() == SpotType.FOUR_WHEELER || spot.getSpotType() == SpotType.OTHERS) && min >= spot.getPricePerHour()) {
@@ -47,9 +47,14 @@ public class ReservationServiceImpl implements ReservationService {
                 newSpot = spot;
             }
         }
-        if(newSpot==null) throw new Exception("Cannot make reservation");
+        if(newSpot==null) throw new Exception("1. Cannot make reservation");
 
         reservation=new Reservation();
+
+        if(numberOfWheels==2)newSpot.setSpotType(SpotType.TWO_WHEELER);
+        else if(numberOfWheels==4)newSpot.setSpotType(SpotType.FOUR_WHEELER);
+        else newSpot.setSpotType(SpotType.OTHERS);
+
         reservation.setSpot(newSpot);
         reservation.setNumberOfHours(timeInHours);
         reservation.setPayment(payment);
