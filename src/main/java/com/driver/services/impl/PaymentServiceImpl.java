@@ -32,7 +32,7 @@ public class PaymentServiceImpl implements PaymentService {
 
             payment.setReservation(reservation);
 
-            paymentRepository2.save(payment);
+            reservationRepository2.save(reservation);
 
         }
         else if(mode.toLowerCase().equals("upi")){
@@ -44,7 +44,7 @@ public class PaymentServiceImpl implements PaymentService {
             reservation.setPayment(payment);
 
             payment.setReservation(reservation);
-            paymentRepository2.save(payment);
+            reservationRepository2.save(reservation);
         }
         else if (mode.toLowerCase().equals("card")) {
             payment=new Payment();
@@ -56,7 +56,7 @@ public class PaymentServiceImpl implements PaymentService {
 
             payment.setReservation(reservation);
 
-            paymentRepository2.save(payment);
+            reservationRepository2.save(reservation);
         }
         else{
             throw new Exception("Payment mode not detected");
