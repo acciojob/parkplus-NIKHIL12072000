@@ -23,22 +23,11 @@ public class ReservationServiceImpl implements ReservationService {
     ParkingLotRepository parkingLotRepository3;
     @Override
     public Reservation reserveSpot(Integer userId, Integer parkingLotId, Integer timeInHours, Integer numberOfWheels) throws Exception {
-        ParkingLot parkingLot=null;
-        User user=null;
         Spot newSpot=null;
-        Reservation reservation=null;
-        try{
-            parkingLot=parkingLotRepository3.findById(parkingLotId).get();
-            System.out.println(parkingLot.getId()+" park");
-        }catch (Exception e){
-            throw new Exception("Cannot make reservation");
-        }
-        try{
-            user=userRepository3.findById(userId).get();
-            System.out.println(user.getId()+" user");
-        }catch (Exception e){
-            throw new Exception("Cannot make reservation");
-        }
+        ParkingLot parkingLot=parkingLotRepository3.findById(parkingLotId).get();
+        if(parkingLot==null) throw new Exception("Cannot make reservation");
+        User user=userRepository3.findById(userId).get();
+        if(user==null) throw new Exception("Cannot make reservation");
         int min=Integer.MAX_VALUE;
         for(Spot spot:parkingLot.getSpotList()) {
             if (numberOfWheels <= 2 && min >= spot.getPricePerHour() && !spot.getOccupied()) {
@@ -55,7 +44,7 @@ public class ReservationServiceImpl implements ReservationService {
         System.out.println(parkingLot.getId()+" "+user.getId()+" "+newSpot.getId());
         if(newSpot==null) throw new Exception("Cannot make reservation");
 
-        reservation=new Reservation();
+        Reservation reservation=new Reservation();
 
         reservation.setSpot(newSpot);
         reservation.setNumberOfHours(timeInHours);
