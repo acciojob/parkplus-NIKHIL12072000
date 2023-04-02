@@ -29,13 +29,13 @@ public class ReservationServiceImpl implements ReservationService {
         Reservation reservation=null;
         try{
             parkingLot=parkingLotRepository3.findById(parkingLotId).get();
-            System.out.println(parkingLot.getName()+" park");
+            System.out.println(parkingLot.getId()+" park");
         }catch (Exception e){
             throw new Exception("Cannot make reservation");
         }
         try{
             user=userRepository3.findById(userId).get();
-            System.out.println(user.getName()+" user");
+            System.out.println(user.getId()+" user");
         }catch (Exception e){
             throw new Exception("Cannot make reservation");
         }
@@ -52,7 +52,7 @@ public class ReservationServiceImpl implements ReservationService {
                 newSpot = spot;
             }
         }
-        System.out.println(parkingLot.getName()+" "+user.getName()+" "+newSpot.getId());
+        System.out.println(parkingLot.getId()+" "+user.getId()+" "+newSpot.getId());
         if(newSpot==null) throw new Exception("Cannot make reservation");
 
         reservation=new Reservation();
