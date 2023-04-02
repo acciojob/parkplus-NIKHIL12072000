@@ -50,6 +50,7 @@ public class ReservationServiceImpl implements ReservationService {
                 newSpot = spot;
             }
         }
+        System.out.println(parkingLot.getName()+" "+user.getName()+" "+newSpot.getId());
         if(newSpot==null) throw new Exception("Cannot make reservation");
 
         reservation=new Reservation();
