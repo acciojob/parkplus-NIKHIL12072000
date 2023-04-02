@@ -29,7 +29,6 @@ public class ParkingLotServiceImpl implements ParkingLotService {
     public Spot addSpot(int parkingLotId, Integer numberOfWheels, Integer pricePerHour) {
         ParkingLot parkingLot=parkingLotRepository1.findById(parkingLotId).get();
         Spot spot=new Spot();
-        spot.setParkingLot(parkingLot);
         spot.setPricePerHour(pricePerHour);
 
         if(numberOfWheels<=2) spot.setSpotType(SpotType.TWO_WHEELER);
@@ -37,6 +36,7 @@ public class ParkingLotServiceImpl implements ParkingLotService {
         else spot.setSpotType(SpotType.OTHERS);
 
         parkingLot.getSpotList().add(spot);
+        spot.setParkingLot(parkingLot);
         parkingLotRepository1.save(parkingLot);
         return spot;
     }
