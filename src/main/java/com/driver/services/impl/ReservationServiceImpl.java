@@ -29,11 +29,13 @@ public class ReservationServiceImpl implements ReservationService {
         Reservation reservation=null;
         try{
             parkingLot=parkingLotRepository3.findById(parkingLotId).get();
+            System.out.println(parkingLot.getName()+" park");
         }catch (Exception e){
             throw new Exception("Cannot make reservation");
         }
         try{
             user=userRepository3.findById(userId).get();
+            System.out.println(user.getName()+" user");
         }catch (Exception e){
             throw new Exception("Cannot make reservation");
         }
