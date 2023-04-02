@@ -48,6 +48,9 @@ public class ParkingLotServiceImpl implements ParkingLotService {
 
     @Override
     public Spot updateSpot(int parkingLotId, int spotId, int pricePerHour) {
+        List<Spot> list=spotRepository1.findAll();
+        System.out.println("Spot: "+spotId);
+        for(int i=0;i< list.size();i++) System.out.println(list.get(i).getId());
         Spot spot=spotRepository1.findById(spotId).get();
         ParkingLot parkingLot=parkingLotRepository1.findById(parkingLotId).get();
 
